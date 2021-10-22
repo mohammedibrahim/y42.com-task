@@ -1,6 +1,6 @@
 # Y42 Task
 
-# Description
+## Description
 - Parse `request-data.json` into the query similar to `result.sql`.
 
 Inside `request-data.json` you have two properties `nodes` and `edges`, `nodes` contains all the required information to apply the transformation into Table/Query and `edges` represents how they are linked together. In each node there is a property `transformObject` which is different for each `type`
@@ -12,18 +12,18 @@ There are 5 different types of nodes used in this request
 	- TEXT_TRANSFORMATION	    -> contains information about applying some text SQL function on any column. For example UPPER, LOWER (see the digram for actual use case)
 	- OUTPUT	-> contains SQL "limit" settings
 
-# Pre-install
+## Pre-install
 The project uses the below stack so make sure that your machine is installing it.
 * PHP 8.0.9 or higher
 
-#Installation
+## Installation
 ### Go the main project path
 Run
 ```
 composer install
 ```
 
-# To start the transformation process
+## To start the transformation process
 Run the following command from your terminal
 ```
 php index.php
@@ -41,7 +41,7 @@ php index.php
 ## Sequence Diagram of App
 ![Sequence Diagram](images/sequence-diagram.png?raw=true)
 
-# Bonus Points
+## Bonus Points
 > Extendable structure which allows to add more types easily in the future.
 
 ![Code Structure](images/nodes.png?raw=true)
@@ -96,7 +96,7 @@ class InputSchemaValidation extends AbstractSchemaValidation
 }
 ```
 
-### Add new created classes to the IOC config
+### Add new created classes to the IOC config file
 for the application IOC to know about the new created classes you have to update the `config/ioc.php` file with the new added NodeType and ValidationSchema classes
 
 ```php
