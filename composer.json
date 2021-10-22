@@ -1,0 +1,25 @@
+{
+    "name": "m/y42",
+    "authors": [
+        {
+            "name": "Mohamed Ibrahim",
+            "email": "m@mibrah.im"
+        }
+    ],
+    "require": {
+        "php": ">=8.0.9",
+        "illuminate/container": "^8.65",
+        "illuminate/support": "^8.65",
+        "symfony/serializer": "^5.3",
+        "symfony/property-access": "^5.3",
+        "opis/json-schema": "^2.2"
+    },
+    "require-dev": {
+        "symfony/var-dumper": "^5.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    }
+}

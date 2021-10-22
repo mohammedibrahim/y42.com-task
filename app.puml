@@ -1,0 +1,59 @@
+@startuml
+title Y42 Task Sequence diagram.
+
+'participant "index" as i
+actor user
+
+participant "Response" as res
+participant "BootStrap" as bs
+participant "SqLQueryTransformerService" as sqts
+participant "SchemaValidation" as sv
+participant "TransformObjectValidationException" as tfove
+
+participant "SchemaValidationFactory" as svf
+participant "SchemaNotFoundException" as snfe
+
+participant "Validator" as va
+participant "SqLQueryBuilder" as sqb
+participant "NodeTypeFactory" as ntf
+participant "NodeTypeNotFoundException" as ntnfe
+participant "TransformObject" as tfo
+
+user -> bs: start
+bs -> sqts: boot(data)
+sqts -> sv: transform(data)
+sv -> svf: getSchemaValidationObject
+alt #lightGreen If schema exists
+    svf --> sv: NodeTypeValidation
+else #Pink Failure
+    svf -> snfe: Schema not found
+    snfe --> bs
+end
+
+sv -> va: validateRequest(data)
+alt #lightGreen If schema is valid
+    va --> sv: Yes
+    sv --> sqts
+    sqts -> sqb
+else #Pink Failure
+    va --> sv: No
+    sv -> tfove
+    tfove --> bs
+end
+loop edge numbers
+    sqb -> ntf: getNodeTypeObject
+    alt #lightGreen If nodeType exists
+        ntf -> tfo: NodeTypeValidation
+    else #Pink Failure
+        ntf -> ntnfe: nodeType not found
+        ntnfe --> bs
+    end
+    tfo --> ntf: TransformationObject
+    ntf --> sqb: NodeTypeObject
+    sqb -> sqb: Convert Node to sql query
+end
+sqb --> sqts: Return sql query
+sqts --> bs
+bs --> res
+res --> user
+@enduml

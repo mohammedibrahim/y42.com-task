@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>PHP</ID>
+  <OriginalElement>/Users/m/Workspace/php/lab/y42/app</OriginalElement>
+  <nodes>
+    <node x="1233.0" y="1370.0">\App\NodeTypes\Sort\SortTransformObject</node>
+    <node x="333.0" y="1370.0">\App\NodeTypes\TextTransformation\TextTransformationTransformObject</node>
+    <node x="0.0" y="1296.0">\App\NodeTypes\Output\OutputSchemaValidation</node>
+    <node x="0.0" y="1030.0">\App\NodeTypes\TextTransformation\TextTransformationTransformObjectCollection</node>
+    <node x="1143.0" y="1296.0">\App\NodeTypes\Sort\SortSchemaValidation</node>
+    <node x="720.0" y="1296.0">\App\Validation\RequestSchemaValidation</node>
+    <node x="775.0" y="361.0">\App\NodeTypes\Filter\FilterNodeType</node>
+    <node x="939.0" y="1296.0">\App\NodeTypes\Input\InputSchemaValidation</node>
+    <node x="192.25" y="882.0">\App\Abstracts\AbstractTransformObjectCollection</node>
+    <node x="363.00000000000006" y="1030.0">\App\NodeTypes\Sort\SortTransformObjectCollection</node>
+    <node x="961.0" y="372.0">\App\NodeTypes\Output\OutputNodeType</node>
+    <node x="0.0" y="592.5">\App\Exceptions\SchemaNotFoundException</node>
+    <node x="1100.5" y="0.0">\App\Contracts\NodeTypeContract</node>
+    <node x="997.5" y="103.0">\App\Abstracts\AbstractType</node>
+    <node x="766.0" y="1535.0">\Symfony\Component\Serializer\Normalizer\DenormalizerInterface</node>
+    <node x="894.75" y="702.0">\App\Contracts\TransformObjectContract</node>
+    <node x="211.0" y="1296.0">\App\NodeTypes\TextTransformation\TextTransformationSchemaValidation</node>
+    <node x="1263.25" y="871.0">\App\NodeTypes\Input\InputTransformObject</node>
+    <node x="1145.0" y="1535.0">\Symfony\Component\Serializer\Normalizer\NormalizerInterface</node>
+    <node x="509.0" y="1296.0">\App\NodeTypes\Filter\FilterSchemaValidation</node>
+    <node x="1458.0" y="372.0">\App\NodeTypes\Input\InputNodeType</node>
+    <node x="0.0" y="1370.0">\App\NodeTypes\SqLQueryBuilder</node>
+    <node x="0.0" y="1535.0">\App\Bootstrap</node>
+    <node x="483.25000000000006" y="860.0">\App\NodeTypes\Filter\FilterTransformObject</node>
+    <node x="219.0" y="592.5">\App\Exceptions\NodeTypeNotFoundException</node>
+    <node x="1115.0" y="361.0">\App\NodeTypes\Sort\SortNodeType</node>
+    <node x="960.0" y="1370.0">\App\NodeTypes\Filter\FilterOperation</node>
+    <node x="609.0" y="1183.0">\App\Abstracts\AbstractSchemaValidation</node>
+    <node x="1254.0" y="361.0">\App\NodeTypes\TextTransformation\TextTransformNodeType</node>
+    <node x="1109.25" y="860.5">\App\NodeTypes\Filter\Person</node>
+    <node x="189.0" y="257.0">\Exception</node>
+    <node x="660.0" y="1370.0">\App\Validation\SchemaValidation</node>
+    <node x="309.0" y="1656.0">\Symfony\Component\Serializer\SerializerAwareInterface</node>
+    <node x="894.75" y="781.0">\App\Abstracts\AbstractTransformObject</node>
+    <node x="1474.0" y="1535.0">\App\Response\Response</node>
+    <node x="638.0" y="1104.0">\App\Contracts\SchemaValidation</node>
+    <node x="249.5" y="0.0">\Throwable</node>
+    <node x="899.25" y="871.0">\App\NodeTypes\Output\OutputTransformObject</node>
+    <node x="0.0" y="1656.0">\Symfony\Component\Serializer\Normalizer\CacheableSupportsMethodInterface</node>
+    <node x="452.0" y="581.0">\App\Exceptions\TransformObjectValidationException</node>
+    <node x="425.0" y="1535.0">\App\Services\SqLQueryTransformerService</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="\App\NodeTypes\Input\InputTransformObject" target="\App\Abstracts\AbstractTransformObject">
+      <point x="0.0" y="-49.0" />
+      <point x="1376.75" y="830.0" />
+      <point x="1073.8500000000001" y="830.0" />
+      <point x="79.60000000000002" y="14.5" />
+    </edge>
+    <edge source="\App\NodeTypes\Output\OutputTransformObject" target="\App\Abstracts\AbstractTransformObject">
+      <point x="0.0" y="-49.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="\App\Abstracts\AbstractTransformObjectCollection" target="\App\Abstracts\AbstractTransformObject">
+      <point x="0.0" y="-38.0" />
+      <point x="327.75" y="830.0" />
+      <point x="914.6500000000001" y="830.0" />
+      <point x="-79.60000000000002" y="14.5" />
+    </edge>
+    <edge source="\App\Abstracts\AbstractType" target="\App\Contracts\NodeTypeContract">
+      <point x="0.0" y="-104.0" />
+      <point x="0.0" y="26.5" />
+    </edge>
+    <edge source="\App\NodeTypes\Output\OutputSchemaValidation" target="\App\Abstracts\AbstractSchemaValidation">
+      <point x="0.0" y="-14.5" />
+      <point x="95.5" y="1256.0" />
+      <point x="626.1666666666666" y="1256.0" />
+      <point x="-85.83333333333337" y="26.5" />
+    </edge>
+    <edge source="\App\Exceptions\NodeTypeNotFoundException" target="\Exception">
+      <point x="0.0" y="-26.5" />
+      <point x="0.0" y="137.0" />
+    </edge>
+    <edge source="\App\NodeTypes\Sort\SortNodeType" target="\App\Abstracts\AbstractType">
+      <point x="0.0" y="-37.5" />
+      <point x="0.0" y="104.0" />
+    </edge>
+    <edge source="\App\Validation\RequestSchemaValidation" target="\App\Abstracts\AbstractSchemaValidation">
+      <point x="0.0" y="-14.5" />
+      <point x="819.5" y="1276.0" />
+      <point x="729.1666666666666" y="1276.0" />
+      <point x="17.16666666666663" y="26.5" />
+    </edge>
+    <edge source="\App\NodeTypes\Filter\FilterSchemaValidation" target="\App\Abstracts\AbstractSchemaValidation">
+      <point x="0.0" y="-14.5" />
+      <point x="604.5" y="1276.0" />
+      <point x="694.8333333333334" y="1276.0" />
+      <point x="-17.16666666666663" y="26.5" />
+    </edge>
+    <edge source="\App\NodeTypes\Filter\FilterNodeType" target="\App\Abstracts\AbstractType">
+      <point x="0.0" y="-37.5" />
+      <point x="858.0" y="331.0" />
+      <point x="1032.9" y="331.0" />
+      <point x="-141.5999999999999" y="104.0" />
+    </edge>
+    <edge source="\App\NodeTypes\TextTransformation\TextTransformationTransformObjectCollection" target="\App\Abstracts\AbstractTransformObjectCollection">
+      <point x="0.0" y="-14.5" />
+      <point x="171.5" y="1005.0" />
+      <point x="260.0" y="1005.0" />
+      <point x="-67.75" y="38.0" />
+    </edge>
+    <edge source="\App\NodeTypes\TextTransformation\TextTransformationSchemaValidation" target="\App\Abstracts\AbstractSchemaValidation">
+      <point x="0.0" y="-14.5" />
+      <point x="350.0" y="1266.0" />
+      <point x="660.5" y="1266.0" />
+      <point x="-51.5" y="26.5" />
+    </edge>
+    <edge source="\App\NodeTypes\Filter\FilterTransformObject" target="\App\Abstracts\AbstractTransformObject">
+      <point x="0.0" y="-60.0" />
+      <point x="681.25" y="840.0" />
+      <point x="954.45" y="840.0" />
+      <point x="-39.799999999999955" y="14.5" />
+    </edge>
+    <edge source="\App\Abstracts\AbstractTransformObject" target="\App\Contracts\TransformObjectContract">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="\App\NodeTypes\Input\InputNodeType" target="\App\Abstracts\AbstractType">
+      <point x="0.0" y="-26.5" />
+      <point x="1521.0" y="331.0" />
+      <point x="1316.1" y="331.0" />
+      <point x="141.5999999999999" y="104.0" />
+    </edge>
+    <edge source="\App\Exceptions\SchemaNotFoundException" target="\Exception">
+      <point x="0.0" y="-26.5" />
+      <point x="99.5" y="556.0" />
+      <point x="234.5" y="556.0" />
+      <point x="-91.0" y="137.0" />
+    </edge>
+    <edge source="\App\NodeTypes\TextTransformation\TextTransformNodeType" target="\App\Abstracts\AbstractType">
+      <point x="0.0" y="-37.5" />
+      <point x="1346.0" y="341.0" />
+      <point x="1245.3" y="341.0" />
+      <point x="70.79999999999995" y="104.0" />
+    </edge>
+    <edge source="\App\Abstracts\AbstractSchemaValidation" target="\App\Contracts\SchemaValidation">
+      <point x="0.0" y="-26.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="\App\NodeTypes\Sort\SortSchemaValidation" target="\App\Abstracts\AbstractSchemaValidation">
+      <point x="0.0" y="-14.5" />
+      <point x="1231.5" y="1256.0" />
+      <point x="797.8333333333334" y="1256.0" />
+      <point x="85.83333333333337" y="26.5" />
+    </edge>
+    <edge source="\App\NodeTypes\Filter\Person" target="\App\Abstracts\AbstractTransformObject">
+      <point x="0.0" y="-59.5" />
+      <point x="1176.25" y="840.0" />
+      <point x="1034.05" y="840.0" />
+      <point x="39.799999999999955" y="14.5" />
+    </edge>
+    <edge source="\App\Exceptions\TransformObjectValidationException" target="\Exception">
+      <point x="0.0" y="-38.0" />
+      <point x="591.0" y="556.0" />
+      <point x="416.5" y="556.0" />
+      <point x="91.0" y="137.0" />
+    </edge>
+    <edge source="\App\NodeTypes\Sort\SortTransformObjectCollection" target="\App\Abstracts\AbstractTransformObjectCollection">
+      <point x="0.0" y="-14.5" />
+      <point x="484.00000000000006" y="1005.0" />
+      <point x="395.5" y="1005.0" />
+      <point x="67.75" y="38.0" />
+    </edge>
+    <edge source="\Exception" target="\Throwable">
+      <point x="0.0" y="-137.0" />
+      <point x="0.0" y="103.5" />
+    </edge>
+    <edge source="\App\NodeTypes\Input\InputSchemaValidation" target="\App\Abstracts\AbstractSchemaValidation">
+      <point x="0.0" y="-14.5" />
+      <point x="1031.0" y="1266.0" />
+      <point x="763.5" y="1266.0" />
+      <point x="51.5" y="26.5" />
+    </edge>
+    <edge source="\App\NodeTypes\Output\OutputNodeType" target="\App\Abstracts\AbstractType">
+      <point x="0.0" y="-26.5" />
+      <point x="1028.0" y="341.0" />
+      <point x="1103.7" y="341.0" />
+      <point x="-70.79999999999995" y="104.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.4905209509852321" x="866.8368624510451" y="1340.5740769184094" />
+  <SelectedNodes>
+    <node>\App\Bootstrap</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Constants</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
