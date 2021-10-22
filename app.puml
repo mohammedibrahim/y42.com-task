@@ -1,7 +1,7 @@
 @startuml
-title Y42 Task Sequence diagram.
+autoactivate on
 
-'participant "index" as i
+title Y42 Task Sequence diagram.
 actor user
 
 participant "Response" as res
@@ -21,6 +21,7 @@ participant "TransformObject" as tfo
 
 user -> bs: start
 bs -> sqts: boot(data)
+
 sqts -> sv: transform(data)
 sv -> svf: getSchemaValidationObject
 alt #lightGreen If schema exists
