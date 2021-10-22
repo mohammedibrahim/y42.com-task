@@ -1,6 +1,6 @@
-#Y42 Task
+# Y42 Task
 
-#Description
+# Description
 - Parse `request-data.json` into the query similar to `result.sql`.
 
 Inside `request-data.json` you have two properties `nodes` and `edges`, `nodes` contains all the required information to apply the transformation into Table/Query and `edges` represents how they are linked together. In each node there is a property `transformObject` which is different for each `type`
@@ -17,7 +17,7 @@ The project uses the below stack so make sure that your machine is installing it
 * PHP 8.0.9 or higher
 
 #Installation
-###Go the main project path
+### Go the main project path
 Run
 ```
 composer install
@@ -36,7 +36,7 @@ php index.php
 }
 ```
 
-##UML Diagram of App
+## UML Diagram of App
 ![UML Digram](images/diagram.png?raw=true)
 
 # Bonus Points
@@ -50,18 +50,18 @@ I have designed my solution so that it gives us the flexibility to add new nodes
 I followed the second SOLID Principle "O for Open for extension closed form modification".
 
 ### To create a new node type you have 
-* You have to create a new directory under `app/NodeTypes` with a name equals to the ID that will be used in the json schema file.
+* You have to create a new directory under `app/NodeTypes`.
 * Create a new transformation object class and define its attribute
 ```php
 use App\Abstracts\AbstractTransformObject;
 
-class InputTransformObject extends AbstractTransformObject
+class INPUT_TRANSFORM_OBJECT_NAME extends AbstractTransformObject
 {
     
 }
 ```
 
-* Create a new class for the new node
+### Create a new class for the new node
 ```php
 use App\Abstracts\AbstractType;
 
@@ -97,50 +97,21 @@ class InputSchemaValidation extends AbstractSchemaValidation
 ### Add new created classes to the IOC config
 for the application IOC to know about the new created classes you have to update the `config/ioc.php` file with the new added NodeType and ValidationSchema classes
 
-```php 
-
+```php
 'NodeType' => function($app, $params) {
-    ['type' => $type, 'transformObject' => $transformObject] = $params;
-
-    $serializer = $app->make(Serializer::class);
+    // ...
+    case 'TEXT_TRANSFORMATION':
+        $params['transformObject'] = $serializer->deserialize(json_encode(['items' => $transformObject]), TextTransformationTransformObjectCollection::class, 'json');
+        return $app->make(TextTransformNodeType::class, $params);
     
-    switch ($type) {
-        case 'INPUT':
-            $params['transformObject'] = $serializer->deserialize(json_encode($transformObject), InputTransformObject::class, 'json');
-            return $app->make(InputNodeType::class, $params);
-        case 'OUTPUT':
-            $params['transformObject'] = $serializer->deserialize(json_encode($transformObject), OutputTransformObject::class, 'json');
-            return $app->make(OutputNodeType::class, $params);
-        case 'SORT':
-            $params['transformObject'] = $serializer->deserialize(json_encode(['items' => $transformObject]), SortTransformObjectCollection::class, 'json');
-            return $app->make(SortNodeType::class, $params);
-        case 'FILTER':
-            $params['transformObject'] = $serializer->deserialize(json_encode($transformObject), FilterTransformObject::class, 'json');
-            return $app->make(FilterNodeType::class, $params);
-        case 'TEXT_TRANSFORMATION':
-            $params['transformObject'] = $serializer->deserialize(json_encode(['items' => $transformObject]), TextTransformationTransformObjectCollection::class, 'json');
-            return $app->make(TextTransformNodeType::class, $params);
-        
-        // Append a new case with your new node information
-            
-        default:
-            throw new NodeTypeNotFoundException();
-    }
-},
+    // Append a new case with your new node information
+}
+```
 
-'ValidationSchema' => function($app, $params) {
-    ['type' => $type] = $params;
-
-    return match ($type) {
-        'INPUT' => new InputSchemaValidation(),
-        'OUTPUT' => new OutputSchemaValidation(),
-        'SORT' => new SortSchemaValidation(),
-        'FILTER' => new FilterSchemaValidation(),
-        'TEXT_TRANSFORMATION' => new TextTransformationSchemaValidation(),
-        'REQUEST_SCHEMA' => new RequestSchemaValidation(),
-        default => throw new SchemaNotFoundException(),
-        
+```php
+'ValidationSchema' => function($app, $params) {    
+        // ...
+        'REQUEST_SCHEMA' => new RequestSchemaValidation(),            
         // Append a new case with your new validation schema information
-    };
-},
+}
 ```
