@@ -35,9 +35,11 @@ php index.php
     "success": "WITH A AS (SELECT `id`,`name`,`age` FROM `users`),B AS (SELECT `id`, `name`, `age` FROM A WHERE age > 18),C AS (SELECT `id`, `name`, `age` FROM B ORDER BY `age` ASC, `name` DESC),D AS (SELECT `id`, UPPER(`name`) as `name`, `age` FROM `C`),E AS (SELECT `id`, `name`, `age` FROM `D` LIMIT 100 OFFSET 0) SELECT * from E"
 }
 ```
-
 ## UML Diagram of App
-![UML Digram](images/diagram.png?raw=true)
+![UML Diagram](images/diagram.png?raw=true)
+
+## Sequence Diagram of App
+![Sequence Diagram](images/sequence-diagram.png?raw=true)
 
 # Bonus Points
 > Extendable structure which allows to add more types easily in the future.
