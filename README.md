@@ -1,5 +1,4 @@
 # Y42 Task
-
 ## Description
 - Parse `request-data.json` into the query similar to `result.sql`.
 

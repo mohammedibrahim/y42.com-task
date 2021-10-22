@@ -25,7 +25,7 @@ bs -> sqts: boot(data)
 sqts -> sv: transform(data)
 sv -> svf: getSchemaValidationObject
 alt #lightGreen If schema exists
-    svf --> sv: NodeTypeValidation
+    svf --> sv: SchemaValidationRules
 else #Pink Failure
     svf -> snfe: Schema not found
     snfe --> bs
