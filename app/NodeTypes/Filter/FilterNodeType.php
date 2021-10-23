@@ -26,7 +26,7 @@ class FilterNodeType extends AbstractType
         $response = [];
 
         foreach ($this->transformObject->getOperations() as $operation){
-            $response[] = "$filedName {$operation['operator']} {$operation['value']}";
+            $response[] = "$filedName {$operation->getOperator()} {$operation->getValue()}";
         }
 
         return implode(" ".$this->transformObject->getJoinOperator(). " " ,$response);

@@ -10,7 +10,7 @@ class FilterTransformObject extends AbstractTransformObject
      * FilterTransformObject constructor.
      * @param string $variableFieldName
      * @param string $joinOperator
-     * @param FilterOperation[] $operations
+     * @param array $operations
      */
     public function __construct(
         protected string $variableFieldName,
@@ -37,7 +37,7 @@ class FilterTransformObject extends AbstractTransformObject
     }
 
     /**
-     * @return FilterOperation[]
+     * @return array
      */
     public function getOperations(): array
     {

@@ -32,6 +32,8 @@ use Illuminate\Container\Container;
 
 use App\NodeTypes\Sort\SortTransformObject;
 use App\NodeTypes\TextTransformation\TextTransformationTransformObject;
+use App\NodeTypes\Filter\FilterOperation;
+
 $iocContainer = new Container();
 
 return [
@@ -58,7 +60,8 @@ return [
                     $params['transformObject'] = $app->make(SortTransformObjectCollection::class, ['items' => $items]);
                     return $app->make(SortNodeType::class, $params);
                 case 'FILTER':
-                    $params['transformObject'] = $serializer->deserialize(json_encode($transformObject), FilterTransformObject::class, 'json');
+                    $transformObject['operations'] = $serializer->deserialize(json_encode($transformObject['operations']), FilterOperation::class.'[]', 'json');
+                    $params['transformObject'] = $app->make(FilterTransformObject::class, $transformObject);
                     return $app->make(FilterNodeType::class, $params);
                 case 'TEXT_TRANSFORMATION':
                     $items = $serializer->deserialize(json_encode($transformObject), TextTransformationTransformObject::class.'[]', 'json');
