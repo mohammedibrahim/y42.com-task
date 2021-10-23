@@ -17,17 +17,15 @@ class SqLQueryBuilder
 
     public function build(array $data): string
     {
-        $dataObj = [];
+        $inputType = $this->getInputNodeType($data['nodes']);
 
-        $res = [];
+        $dataObj[$inputType->getKey()] = $this->getInputNodeType($data['nodes']);
+
+        $res[] = $inputType->toQuery();
 
         foreach ($data['edges'] as $edge) {
-            ['from' => $from, 'to' => $to] = $edge;
 
-            if (empty($dataObj[$from])) {
-                $dataObj[$from] = $this->getNodeByKey($from, $data['nodes'], NULL);
-                $res[] = $dataObj[$from]->toQuery();
-            }
+            ['from' => $from, 'to' => $to] = $edge;
 
             $dataObj[$to] = $this->getNodeByKey($to, $data['nodes'], $dataObj[$from]);
 
@@ -50,6 +48,19 @@ class SqLQueryBuilder
         $data = end($result);
 
         $data['prevNode'] = $prevNode;
+
+        return $this->ioc->make('NodeType', $data);
+    }
+
+    protected function getInputNodeType($nodes): NodeTypeContract
+    {
+        $result = array_filter($nodes, function ($node) {
+            return 'INPUT' === $node['type'];
+        });
+
+        $this->validator->validate('INPUT', end($result));
+
+        $data = end($result);
 
         return $this->ioc->make('NodeType', $data);
     }

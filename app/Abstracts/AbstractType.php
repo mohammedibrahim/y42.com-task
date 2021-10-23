@@ -14,14 +14,14 @@ abstract class AbstractType implements NodeTypeContract
      * AbstractType constructor.
      * @param string $type
      * @param string $key
-     * @param NodeTypeContract | NULL $prevNode
      * @param TransformObjectContract $transformObject
+     * @param NodeTypeContract | NULL $prevNode
      */
     public function __construct(
         protected string $type,
         protected string $key,
-        protected NodeTypeContract|null $prevNode,
-        TransformObjectContract $transformObject
+        TransformObjectContract $transformObject,
+        protected NodeTypeContract|null $prevNode = NULL,
     )
     {
         if ($prevNode) {
