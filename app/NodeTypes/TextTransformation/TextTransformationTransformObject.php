@@ -1,24 +1,19 @@
 <?php
 
-
 namespace App\NodeTypes\TextTransformation;
-
 
 class TextTransformationTransformObject
 {
-    protected string $column;
-
-    protected string $transformation;
-
     /**
      * TextTransformationTransformObject constructor.
      * @param string $column
      * @param string $transformation
      */
-    public function __construct(string $column, string $transformation)
+    public function __construct(
+        protected string $column,
+        protected string $transformation
+    )
     {
-        $this->column = $column;
-        $this->transformation = $transformation;
     }
 
     /**

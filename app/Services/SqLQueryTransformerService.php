@@ -8,17 +8,12 @@ use Symfony\Component\Serializer\Serializer;
 
 class SqLQueryTransformerService
 {
-    protected Serializer $serializer;
-
-    protected SchemaValidation $validator;
-
-    protected SqLQueryBuilder $sqlQueryBuilder;
-
-    public function __construct(SchemaValidation $validator, SqLQueryBuilder $sqlQueryBuilder)
+    public function __construct(
+        protected Serializer $serializer,
+        protected SchemaValidation $validator,
+        protected SqLQueryBuilder $sqlQueryBuilder,
+    )
     {
-        $this->validator = $validator;
-
-        $this->sqlQueryBuilder = $sqlQueryBuilder;
     }
 
     public function transform(array $data): string

@@ -8,12 +8,6 @@ use App\NodeTypes\Input\InputNodeType;
 
 abstract class AbstractType implements NodeTypeContract
 {
-    protected string $type;
-
-    protected string $key;
-
-    protected NodeTypeContract | NULL $prevNode;
-
     protected InputNodeType $inputNodeType;
 
     /**
@@ -23,16 +17,17 @@ abstract class AbstractType implements NodeTypeContract
      * @param NodeTypeContract | NULL $prevNode
      * @param TransformObjectContract $transformObject
      */
-    public function __construct(string $type, string $key, NodeTypeContract | NULL $prevNode, TransformObjectContract $transformObject)
+    public function __construct(
+        protected string $type,
+        protected string $key,
+        protected NodeTypeContract|null $prevNode,
+        TransformObjectContract $transformObject
+    )
     {
-        $this->type = $type;
-        $this->key = $key;
-        $this->prevNode = $prevNode;
-
-        if($prevNode){
-            if(get_class($prevNode) === InputNodeType::class){
+        if ($prevNode) {
+            if (get_class($prevNode) === InputNodeType::class) {
                 $this->inputNodeType = $prevNode;
-            }else{
+            } else {
                 $this->inputNodeType = $prevNode->getInputNodeType();
             }
         }
@@ -51,7 +46,7 @@ abstract class AbstractType implements NodeTypeContract
     /**
      * @return NodeTypeContract | NULL
      */
-    public function getPrevNode(): NodeTypeContract| NULL
+    public function getPrevNode(): NodeTypeContract|null
     {
         return $this->prevNode;
     }
@@ -62,14 +57,6 @@ abstract class AbstractType implements NodeTypeContract
     public function getType(): string
     {
         return $this->type;
-    }
-
-    /**
-     * @return string
-     */
-    public function getKey(): string
-    {
-        return $this->key;
     }
 
     /**
@@ -88,6 +75,14 @@ abstract class AbstractType implements NodeTypeContract
     protected function getPrevTableName(): string
     {
         return $this->prevNode->getKey();
+    }
+
+    /**
+     * @return string
+     */
+    public function getKey(): string
+    {
+        return $this->key;
     }
 
     protected function getCloumns($columns): string

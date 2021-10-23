@@ -6,26 +6,18 @@ use App\Abstracts\AbstractTransformObject;
 
 class FilterTransformObject extends AbstractTransformObject
 {
-    protected string $variableFieldName;
-
-    protected string $joinOperator;
-
-    /**
-     * @var FilterOperation[]
-     */
-    protected array $operations;
-
     /**
      * FilterTransformObject constructor.
      * @param string $variableFieldName
      * @param string $joinOperator
      * @param FilterOperation[] $operations
      */
-    public function __construct(string $variableFieldName, string $joinOperator, array $operations)
+    public function __construct(
+        protected string $variableFieldName,
+        protected string $joinOperator,
+        protected array $operations
+    )
     {
-        $this->variableFieldName = $variableFieldName;
-        $this->joinOperator = $joinOperator;
-        $this->operations = $operations;
     }
 
     /**

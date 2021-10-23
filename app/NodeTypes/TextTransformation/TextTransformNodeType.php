@@ -24,8 +24,8 @@ class TextTransformNodeType extends AbstractType
         foreach ($columns as $column){
             $added = false;
             foreach ($fields as $field){
-                if($field['column'] === $column){
-                    $newColumns[] = "{$field['transformation']}(`{$field['column']}`) as `$column`";
+                if($field->getColumn() === $column){
+                    $newColumns[] = "{$field->getTransformation()}(`{$field->getColumn()}`) as `$column`";
                     $added = true;
                     break;
                 }

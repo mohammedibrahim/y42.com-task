@@ -4,19 +4,16 @@ namespace App\NodeTypes\Sort;
 
 class SortTransformObject
 {
-    protected string $target;
-
-    protected string $order;
-
     /**
      * SortTransformObject constructor.
      * @param string $target
      * @param string $order
      */
-    public function __construct(string $target, string $order)
+    public function __construct(
+        protected string $target,
+        protected string $order
+    )
     {
-        $this->target = $target;
-        $this->order = $order;
     }
 
     /**

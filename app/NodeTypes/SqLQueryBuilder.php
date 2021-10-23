@@ -5,21 +5,14 @@ namespace App\NodeTypes;
 use App\Contracts\NodeTypeContract;
 use App\Validation\SchemaValidation;
 use Illuminate\Contracts\Container\Container;
-use Symfony\Component\Serializer\Serializer;
 
 class SqLQueryBuilder
 {
-    protected Container $ioc;
-
-    protected Serializer $serializer;
-
-    protected SchemaValidation $validator;
-
-    public function __construct(Container $container, SchemaValidation $validator)
+    public function __construct(
+        protected Container $ioc,
+        protected SchemaValidation $validator
+    )
     {
-        $this->ioc = $container;
-
-        $this->validator = $validator;
     }
 
     public function build(array $data): string
@@ -33,7 +26,7 @@ class SqLQueryBuilder
 
             if (empty($dataObj[$from])) {
                 $dataObj[$from] = $this->getNodeByKey($from, $data['nodes'], NULL);
-                $res[] =  $dataObj[$from]->toQuery();
+                $res[] = $dataObj[$from]->toQuery();
             }
 
             $dataObj[$to] = $this->getNodeByKey($to, $data['nodes'], $dataObj[$from]);

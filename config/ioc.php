@@ -3,6 +3,7 @@
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Normalizer\ArrayDenormalizer;
 
 use App\NodeTypes\Input\InputNodeType;
 use App\NodeTypes\Filter\FilterNodeType;
@@ -29,12 +30,14 @@ use App\NodeTypes\TextTransformation\TextTransformationTransformObjectCollection
 use Illuminate\Contracts\Container\Container  as ContainerInterface;
 use Illuminate\Container\Container;
 
+use App\NodeTypes\Sort\SortTransformObject;
+use App\NodeTypes\TextTransformation\TextTransformationTransformObject;
 $iocContainer = new Container();
 
 return [
     'bindings' => [
         Serializer::class => fn($app) => new Serializer(
-            [new ObjectNormalizer()],
+            [new ObjectNormalizer(), new ArrayDenormalizer()],
             [new JsonEncoder()],
         ),
 
@@ -51,13 +54,15 @@ return [
                     $params['transformObject'] = $serializer->deserialize(json_encode($transformObject), OutputTransformObject::class, 'json');
                     return $app->make(OutputNodeType::class, $params);
                 case 'SORT':
-                    $params['transformObject'] = $serializer->deserialize(json_encode(['items' => $transformObject]), SortTransformObjectCollection::class, 'json');
+                    $items = $serializer->deserialize(json_encode($transformObject), SortTransformObject::class.'[]', 'json');
+                    $params['transformObject'] = $app->make(SortTransformObjectCollection::class, ['items' => $items]);
                     return $app->make(SortNodeType::class, $params);
                 case 'FILTER':
                     $params['transformObject'] = $serializer->deserialize(json_encode($transformObject), FilterTransformObject::class, 'json');
                     return $app->make(FilterNodeType::class, $params);
                 case 'TEXT_TRANSFORMATION':
-                    $params['transformObject'] = $serializer->deserialize(json_encode(['items' => $transformObject]), TextTransformationTransformObjectCollection::class, 'json');
+                    $items = $serializer->deserialize(json_encode($transformObject), TextTransformationTransformObject::class.'[]', 'json');
+                    $params['transformObject'] = $app->make(TextTransformationTransformObjectCollection::class, ['items' => $items]);
                     return $app->make(TextTransformNodeType::class, $params);
                 default:
                     throw new NodeTypeNotFoundException();

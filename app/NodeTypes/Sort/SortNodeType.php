@@ -24,7 +24,7 @@ class SortNodeType extends AbstractType
         $output = [];
 
         foreach ($this->transformObject->getItems() as $orderItem){
-            $output[] = "`{$orderItem['target']}` {$orderItem['order']}";
+            $output[] = "`{$orderItem->getTarget()}` {$orderItem->getOrder()}";
         }
 
         return implode(", ", $output);

@@ -9,15 +9,11 @@ use Opis\JsonSchema\Validator;
 
 class SchemaValidation
 {
-    protected Container $ioc;
-
-    protected Validator $validator;
-
-    public function __construct(Container $container, Validator $validator)
+    public function __construct(
+        protected Container $ioc,
+        protected Validator $validator
+    )
     {
-        $this->ioc = $container;
-
-        $this->validator = $validator;
     }
 
     public function validateRequest($type, $result): bool
