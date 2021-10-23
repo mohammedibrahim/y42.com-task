@@ -35,10 +35,13 @@ php index.php
     "success": "WITH A AS (SELECT `id`,`name`,`age` FROM `users`),B AS (SELECT `id`, `name`, `age` FROM A WHERE age > 18),C AS (SELECT `id`, `name`, `age` FROM B ORDER BY `age` ASC, `name` DESC),D AS (SELECT `id`, UPPER(`name`) as `name`, `age` FROM `C`),E AS (SELECT `id`, `name`, `age` FROM `D` LIMIT 100 OFFSET 0) SELECT * from E"
 }
 ```
-## UML Diagram of App
+## System Diagrams
+- [UML Diagram](#uml-diagram)
+- [Sequence Diagram](#sequence-diagram)
+### UML Diagram
 ![UML Diagram](images/diagram.png?raw=true)
 
-## Sequence Diagram of App
+### Sequence Diagram
 ![Sequence Diagram](images/sequence-diagram.png?raw=true)
 
 ## Bonus Points
