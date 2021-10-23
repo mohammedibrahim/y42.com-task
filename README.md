@@ -10,7 +10,8 @@ There are 5 different types of nodes used in this request
 	- SORT		-> contains SQL "order by" settings 
 	- TEXT_TRANSFORMATION	    -> contains information about applying some text SQL function on any column. For example UPPER, LOWER (see the digram for actual use case)
 	- OUTPUT	-> contains SQL "limit" settings
-
+### Graphical representation of actual use-case:
+![graphical representation](https://github.com/goes-funky/modeling-test/blob/master/graphical-representation.png?raw=true)
 ## Pre-install
 The project uses the below stack so make sure that your machine is installing it.
 * PHP 8.0.9 or higher
@@ -50,25 +51,46 @@ php index.php
 I have designed my solution so that it gives us the flexibility to add new nodes types with its custom transformationObject structure without any need to change in the main class
 I followed the second SOLID Principle "O for Open for extension closed form modification".
 
-### To create a new node type you have 
+Check [Create New NodeType](#create-new-node-type) section
+
+----
+> Suggestion on how to validate the columns used inside the nodes.
+
+![Code Structure](images/schemaValidation.png?raw=true)
+
+I have used [`opis/json-schema`](https://opis.io/json-schema/) php library to validate the node schema for each type.
+
+Check [Create Schema Validation](#create-the-schema-validation) section
+
+----
+
+## Create New Node Type
+- [Create NodeType Transform Object](#create-nodetype-transform-object)
+- [Create the new NodeType](#create-the-new-nodetype)
+- [Create the schema validation](#create-the-schema-validation)
+- [Add to the IOC config file](#add-to-the-ioc-config-file)
+### Create NodeType Transform Object
 * You have to create a new directory under `app/NodeTypes`.
 * Create a new transformation object class and define its attribute
 ```php
 use App\Abstracts\AbstractTransformObject;
 
-class INPUT_TRANSFORM_OBJECT_NAME extends AbstractTransformObject
+class NEW_TRANSFORM_OBJECT_NAME extends AbstractTransformObject
 {
-    
+    //Set transform object attributes here.
 }
 ```
-
-### Create a new class for the new node
+### Create the new NodeType
+* Create a new NodeType object class and define
+* Replace datatype for the property `$transformObject` to be the new `NEW_TRANSFORM_OBJECT_NAME` you have created.
+* Implement the `toQuery` method to return the new nodeType query.
+ 
 ```php
 use App\Abstracts\AbstractType;
 
-class INPUT_TYPE_NAME extends AbstractType
+class NEW_NODE_TYPE_NAME extends AbstractType
 {
-    protected INPUT_TRANSFORMATION_OBJECT $transformObject;
+    protected NEW_TRANSFORM_OBJECT_NAME $transformObject;
 
     public function toQuery(): string
     {
@@ -77,17 +99,13 @@ class INPUT_TYPE_NAME extends AbstractType
     }
 }
 ```
-----
-> Suggestion on how to validate the columns used inside the nodes.
 
-![Code Structure](images/schemaValidation.png?raw=true)
-
-I have used `opis/json-schema` php library to validate the node schema for each type. To create a new schema validation
-Create a new schema Validation file inside the directory of the new node type 
+### Create the schema validation
+* Create a new schema Validation class inside the directory of the new node type we just created.
 ```php
 use App\Abstracts\AbstractSchemaValidation;
 
-class InputSchemaValidation extends AbstractSchemaValidation
+class NEW_NODE_TYPE_SCHEMA_VALIDATION extends AbstractSchemaValidation
 {
     protected array $schema = [
         //Set the validation rules here inside the schema property array.
@@ -95,9 +113,10 @@ class InputSchemaValidation extends AbstractSchemaValidation
 }
 ```
 
-### Add new created classes to the IOC config file
+### Add to the IOC config file
 for the application IOC to know about the new created classes you have to update the `config/ioc.php` file with the new added NodeType and ValidationSchema classes
 
+Add new switch case in the `NodeType` property inside ioc configuration file at `config/ioc.php`.
 ```php
 'NodeType' => function($app, $params) {
     // ...
@@ -108,7 +127,7 @@ for the application IOC to know about the new created classes you have to update
     // Append a new case with your new node information
 }
 ```
-
+Add new switch case in the `ValidationSchema` property inside ioc configuration file at `config/ioc.php`..
 ```php
 'ValidationSchema' => function($app, $params) {    
         // ...
