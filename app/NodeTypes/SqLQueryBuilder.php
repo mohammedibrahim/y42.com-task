@@ -20,6 +20,7 @@ class SqLQueryBuilder
     public function build(array $data): string
     {
         ['nodes' => $nodes, 'edges' => $edges ]  = $data;
+
         $inputType = $this->getInputNodeType($nodes);
 
         $dataObj[$inputType->getKey()] = $this->getInputNodeType($nodes);
