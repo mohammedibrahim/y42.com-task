@@ -93,6 +93,8 @@ use App\Abstracts\AbstractType;
 
 class NEW_NODE_TYPE_NAME extends AbstractType
 {
+    const TYPE_NAME = '## TYPE NAME ##';
+
     protected NEW_TRANSFORM_OBJECT_NAME $transformObject;
 
     public function toQuery(): string
@@ -119,22 +121,24 @@ class NEW_NODE_TYPE_SCHEMA_VALIDATION extends AbstractSchemaValidation
 ### Add to the IOC config file
 for the application IOC to know about the new created classes you have to update the `config/ioc.php` file with the new added NodeType and ValidationSchema classes
 
-Add new switch case in the `NodeType` property inside ioc configuration file at `config/ioc.php`.
+Add new switch case in the `NODE_TYPE` property inside ioc configuration file at `config/ioc.php`.
 ```php
-'NodeType' => function($app, $params) {
+'NODE_TYPE' => function($app, $params) {
     // ...
-    case 'TEXT_TRANSFORMATION':
+    case TextTransformNodeType::TYPE_NAME:
         $params['transformObject'] = $serializer->deserialize(json_encode(['items' => $transformObject]), TextTransformationTransformObjectCollection::class, 'json');
         return $app->make(TextTransformNodeType::class, $params);
+    case NEW_NODE_TYPE_NAME::TYPE_NAME:
+        
     
     // Append a new case with your new node information
 }
 ```
-Add new switch case in the `ValidationSchema` property inside ioc configuration file at `config/ioc.php`..
+Add new switch case in the `SchemaValidationContract::class` property inside ioc configuration file at `config/ioc.php`..
 ```php
-'ValidationSchema' => function($app, $params) {    
+SchemaValidationContract::class => function($app, $params) {    
         // ...
-        'REQUEST_SCHEMA' => new RequestSchemaValidation(),            
+        REQUEST_SCHEMA => new RequestSchemaValidation(),            
         // Append a new case with your new validation schema information
 }
 ```

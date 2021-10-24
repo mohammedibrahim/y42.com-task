@@ -6,6 +6,8 @@ use App\Abstracts\AbstractType;
 
 class FilterNodeType extends AbstractType
 {
+    const TYPE_NAME = 'FILTER';
+
     protected FilterTransformObject $transformObject;
 
     public function toQuery(): string

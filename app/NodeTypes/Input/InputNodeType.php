@@ -6,6 +6,8 @@ use App\Abstracts\AbstractType;
 
 class InputNodeType extends AbstractType
 {
+    const TYPE_NAME = 'INPUT';
+
     protected InputTransformObject $transformObject;
 
     public function toQuery(): string

@@ -6,6 +6,8 @@ use App\Abstracts\AbstractType;
 
 class TextTransformNodeType extends AbstractType
 {
+    const TYPE_NAME = 'TEXT_TRANSFORMATION';
+
     protected TextTransformationTransformObjectCollection $transformObject;
 
     public function toQuery(): string

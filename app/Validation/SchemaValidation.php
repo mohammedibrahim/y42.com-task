@@ -2,6 +2,7 @@
 
 namespace App\Validation;
 
+use App\Contracts\SchemaValidationContract;
 use App\Exceptions\TransformObjectValidationException;
 use Illuminate\Contracts\Container\Container;
 use Opis\JsonSchema\Helper;
@@ -18,7 +19,7 @@ class SchemaValidation
 
     public function validateRequest($type, $result): bool
     {
-        $schema = Helper::toJSON($this->ioc->make('ValidationSchema', ['type' => $type])->getSchema());
+        $schema = Helper::toJSON($this->ioc->make(SchemaValidationContract::class, ['type' => $type])->getSchema());
 
         $validationResult = $this->validator->validate(Helper::toJSON($result), $schema);
 
@@ -31,7 +32,7 @@ class SchemaValidation
 
     public function validate($type, $result): bool
     {
-        $schema = Helper::toJSON($this->ioc->make('ValidationSchema', ['type' => $type])->getSchema());
+        $schema = Helper::toJSON($this->ioc->make(SchemaValidationContract::class, ['type' => $type])->getSchema());
 
         ['transformObject' => $transformObject, 'key' => $key] = $result;
 

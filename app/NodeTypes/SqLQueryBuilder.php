@@ -3,6 +3,8 @@
 namespace App\NodeTypes;
 
 use App\Contracts\NodeTypeContract;
+use App\NodeTypes\Input\InputNodeType;
+use App\NodeTypes\Input\InputTransformObject;
 use App\Validation\SchemaValidation;
 use Illuminate\Contracts\Container\Container;
 
@@ -17,17 +19,18 @@ class SqLQueryBuilder
 
     public function build(array $data): string
     {
-        $inputType = $this->getInputNodeType($data['nodes']);
+        ['nodes' => $nodes, 'edges' => $edges ]  = $data;
+        $inputType = $this->getInputNodeType($nodes);
 
-        $dataObj[$inputType->getKey()] = $this->getInputNodeType($data['nodes']);
+        $dataObj[$inputType->getKey()] = $this->getInputNodeType($nodes);
 
         $res[] = $inputType->toQuery();
 
-        foreach ($data['edges'] as $edge) {
+        foreach ($edges as $edge) {
 
             ['from' => $from, 'to' => $to] = $edge;
 
-            $dataObj[$to] = $this->getNodeByKey($to, $data['nodes'], $dataObj[$from]);
+            $dataObj[$to] = $this->getNodeByKey($to, $nodes, $dataObj[$from]);
 
             $res[] = $dataObj[$to]->toQuery();
         }
@@ -49,19 +52,19 @@ class SqLQueryBuilder
 
         $data['prevNode'] = $prevNode;
 
-        return $this->ioc->make('NodeType', $data);
+        return $this->ioc->make(NODE_TYPE, $data);
     }
 
     protected function getInputNodeType($nodes): NodeTypeContract
     {
         $result = array_filter($nodes, function ($node) {
-            return 'INPUT' === $node['type'];
+            return InputNodeType::TYPE_NAME === $node['type'];
         });
 
-        $this->validator->validate('INPUT', end($result));
+        $this->validator->validate(InputNodeType::TYPE_NAME, end($result));
 
         $data = end($result);
 
-        return $this->ioc->make('NodeType', $data);
+        return $this->ioc->make(NODE_TYPE, $data);
     }
 }

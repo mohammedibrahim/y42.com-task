@@ -6,6 +6,8 @@ use App\Abstracts\AbstractType;
 
 class OutputNodeType extends AbstractType
 {
+    const TYPE_NAME = 'OUTPUT';
+
     protected OutputTransformObject $transformObject;
 
     public function toQuery(): string

@@ -6,6 +6,8 @@ use App\Abstracts\AbstractType;
 
 class SortNodeType extends AbstractType
 {
+    const TYPE_NAME = 'SORT';
+
     protected SortTransformObjectCollection $transformObject;
 
     public function toQuery(): string

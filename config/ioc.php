@@ -33,8 +33,11 @@ use Illuminate\Container\Container;
 use App\NodeTypes\Sort\SortTransformObject;
 use App\NodeTypes\TextTransformation\TextTransformationTransformObject;
 use App\NodeTypes\Filter\FilterOperation;
-
+use App\Contracts\SchemaValidationContract;
 $iocContainer = new Container();
+
+define('REQUEST_SCHEMA', 'REQUEST_SCHEMA');
+define('NODE_TYPE', 'NODE_TYPE');
 
 return [
     'bindings' => [
@@ -43,27 +46,27 @@ return [
             [new JsonEncoder()],
         ),
 
-        'NodeType' => function($app, $params) {
+        'NODE_TYPE' => function($app, $params) {
             ['type' => $type, 'transformObject' => $transformObject] = $params;
 
             $serializer = $app->make(Serializer::class);
             
             switch ($type) {
-                case 'INPUT':
+                case InputNodeType::TYPE_NAME:
                     $params['transformObject'] = $serializer->deserialize(json_encode($transformObject), InputTransformObject::class, 'json');
                     return $app->make(InputNodeType::class, $params);
-                case 'OUTPUT':
+                case OutputNodeType::TYPE_NAME:
                     $params['transformObject'] = $serializer->deserialize(json_encode($transformObject), OutputTransformObject::class, 'json');
                     return $app->make(OutputNodeType::class, $params);
-                case 'SORT':
+                case SortNodeType::TYPE_NAME:
                     $items = $serializer->deserialize(json_encode($transformObject), SortTransformObject::class.'[]', 'json');
                     $params['transformObject'] = $app->make(SortTransformObjectCollection::class, ['items' => $items]);
                     return $app->make(SortNodeType::class, $params);
-                case 'FILTER':
+                case FilterNodeType::TYPE_NAME:
                     $transformObject['operations'] = $serializer->deserialize(json_encode($transformObject['operations']), FilterOperation::class.'[]', 'json');
                     $params['transformObject'] = $app->make(FilterTransformObject::class, $transformObject);
                     return $app->make(FilterNodeType::class, $params);
-                case 'TEXT_TRANSFORMATION':
+                case TextTransformNodeType::TYPE_NAME:
                     $items = $serializer->deserialize(json_encode($transformObject), TextTransformationTransformObject::class.'[]', 'json');
                     $params['transformObject'] = $app->make(TextTransformationTransformObjectCollection::class, ['items' => $items]);
                     return $app->make(TextTransformNodeType::class, $params);
@@ -72,16 +75,16 @@ return [
             }
         },
 
-        'ValidationSchema' => function($app, $params) {
+        SchemaValidationContract::class => function($app, $params) {
             ['type' => $type] = $params;
 
             return match ($type) {
-                'INPUT' => new InputSchemaValidation(),
-                'OUTPUT' => new OutputSchemaValidation(),
-                'SORT' => new SortSchemaValidation(),
-                'FILTER' => new FilterSchemaValidation(),
-                'TEXT_TRANSFORMATION' => new TextTransformationSchemaValidation(),
-                'REQUEST_SCHEMA' => new RequestSchemaValidation(),
+                InputNodeType::TYPE_NAME => new InputSchemaValidation(),
+                OutputNodeType::TYPE_NAME => new OutputSchemaValidation(),
+                SortNodeType::TYPE_NAME => new SortSchemaValidation(),
+                FilterNodeType::TYPE_NAME => new FilterSchemaValidation(),
+                TextTransformNodeType::TYPE_NAME => new TextTransformationSchemaValidation(),
+                REQUEST_SCHEMA => new RequestSchemaValidation(),
                 default => throw new SchemaNotFoundException(),
             };
         },

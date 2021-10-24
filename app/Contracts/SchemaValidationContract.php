@@ -2,7 +2,7 @@
 
 namespace App\Contracts;
 
-interface SchemaValidation
+interface SchemaValidationContract
 {
 
 }

@@ -2,9 +2,9 @@
 
 namespace App\Abstracts;
 
-use App\Contracts\SchemaValidation;
+use App\Contracts\SchemaValidationContract;
 
-abstract class AbstractSchemaValidation implements SchemaValidation
+abstract class AbstractSchemaValidation implements SchemaValidationContract
 {
     protected array $schema;
 
